@@ -27,6 +27,8 @@ namespace PB_MusicPlayer
         private System.Timers.Timer detectionTimer;
         // Variable for active song detection
         private bool songDetection = false;
+        // Variable for browser is ready
+        private bool browserReady = false;
 
         /*
          * Start actions when program is started
@@ -68,7 +70,11 @@ namespace PB_MusicPlayer
          */
         private void MainWindow_Close(object sender, FormClosedEventArgs e)
         {
-            detectionTimer.Stop();
+            // Check if is a timer running
+            if (detectionTimer != null)
+            {
+                detectionTimer.Stop();
+            }
             Cef.Shutdown();
         }
 
@@ -77,6 +83,8 @@ namespace PB_MusicPlayer
          */
         private void OpenPlayer()
         {
+            // Set browserReady to false
+            browserReady = false;
             // If the app is not configured
             if (Registry.ValueCount() != 5)
             {
@@ -91,6 +99,15 @@ namespace PB_MusicPlayer
                 string[] splitchar = new string[] { "://" };
                 string[] strArr = str.Split(splitchar, StringSplitOptions.None);
                 chromeBrowser = new ChromiumWebBrowser(strArr[0] + "://" + Registry.Read("credentialsName") + ":" + Registry.Read("credentialsPassword") + "@" + strArr[1] + "/ytplayer");
+                chromeBrowser.FrameLoadEnd += (sender, args) =>
+                {
+                    // Wait for the MainFrame to finish loading
+                    if (args.Frame.IsMain)
+                    {
+                        // Call the browser is now ready to talk to it
+                        browserReady = true;
+                    }
+                };
                 chromeBrowser.LoadingStateChanged += OnBrowserloadComplete;
             }
 
@@ -108,9 +125,12 @@ namespace PB_MusicPlayer
             panel1.Controls.Clear();
             chromeBrowser.Dispose();
             songDetection = false;
-            detectionTimer.Stop();
+            // Check if is a timer running
+            if (detectionTimer != null)
+            {
+                detectionTimer.Stop();
+            }
             // Open normal player
-
             OpenPlayer();
         }
 
@@ -122,7 +142,11 @@ namespace PB_MusicPlayer
             // Clear complete panel
             panel1.Controls.Clear();
             chromeBrowser.Dispose();
-            detectionTimer.Stop();
+            // Check if is a timer running
+            if (detectionTimer != null)
+            {
+                detectionTimer.Stop();
+            }
             songDetection = false;
             // Create setting dialog and open it
             Settings settings = new Settings();
@@ -137,7 +161,7 @@ namespace PB_MusicPlayer
         private void OnBrowserloadComplete(object sender, LoadingStateChangedEventArgs e)
         {
             // When song detection is not started
-            if(songDetection == false)
+            if (songDetection == false)
             {
                 // Do start it
                 songDetection = true;
@@ -167,19 +191,24 @@ namespace PB_MusicPlayer
             var script = String.Format("$('#currentSong > strong').html();");
             string outputFormat = Registry.Read("songFormat");
 
-            // Wait on result
-            chromeBrowser.EvaluateScriptAsync(script).ContinueWith(x =>
+            // Check if browser is ready
+            if (browserReady == true)
             {
-                var response = x.Result;
-
-                if (response.Success && response.Result != null)
+                // Wait on result
+                chromeBrowser.EvaluateScriptAsync(script).ContinueWith(x =>
                 {
-                    // Format restult to users output
-                    outputFormat = outputFormat.Replace("%SONG%", WebUtility.HtmlDecode(response.Result.ToString()));
-                    // Write ouptput into file
-                    System.IO.File.WriteAllText(@Registry.Read("songPath") + @"\current_song.txt", outputFormat);
-                }
-            });
+                    var response = x.Result;
+
+                    if (response.Success && response.Result != null)
+                    {
+                        // Format restult to users output
+                        outputFormat = outputFormat.Replace("%SONG%", WebUtility.HtmlDecode(response.Result.ToString()));
+                        // Write ouptput into file
+                        System.IO.File.WriteAllText(@Registry.Read("songPath") + @"\current_song.txt", outputFormat);
+                    }
+                });
+            }
+
         }
 
         /*
@@ -194,7 +223,7 @@ namespace PB_MusicPlayer
             // Is not current version send message for update
             if (webVersion != softwareVersion)
             {
-                MessageBox.Show("Your current installed version is " + softwareVersion + ".\r\n\r\nThe new version " + webVersion + " can now be downloaded now, upgrade as soon as possible!", "New version available!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("New version is available now! Your current installed version is " + softwareVersion + ".\r\n\r\nThe new version " + webVersion + " can now be downloaded now, upgrade as soon as possible!", "New version available!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 System.Diagnostics.Process.Start(baseDomain + "download");
             }
         }
@@ -225,10 +254,6 @@ namespace PB_MusicPlayer
         private void JoinMenu_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(baseDomain + "discord");
-        }
-        private void Version_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start(baseDomain + "download");
         }
     }
 }

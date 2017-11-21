@@ -95,7 +95,6 @@
             this.version.Name = "version";
             this.version.Size = new System.Drawing.Size(57, 21);
             this.version.Text = "Version";
-            this.version.Click += new System.EventHandler(this.Version_Click);
             // 
             // joinMenu
             // 

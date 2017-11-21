@@ -4,6 +4,13 @@
 
 # Changelog
 
+## Version 1.0.1 (2017-11-21)
+
+- Prevent exception on loading the PhantomBot YouTube Player
+- Modify update message
+- Added support for .NET Framework 4.7 and 4.7.1
+- [#1] Fix exception of load undefined detection timer
+
 ## Version 1.0 (2017-11-19)
 
 - The first version of phantombot-musicplayer is released

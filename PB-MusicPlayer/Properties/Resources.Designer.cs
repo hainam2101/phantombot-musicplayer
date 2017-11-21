@@ -132,7 +132,7 @@ namespace PB_MusicPlayer.Properties {
         
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!doctype html&gt;
-        ///&lt;title&gt;Wartungsarbeiten&lt;/title&gt;
+        ///&lt;title&gt;App not configured!&lt;/title&gt;
         ///&lt;meta charset=&quot;utf-8&quot; /&gt;
         ///&lt;style&gt;
         ///  body { text-align: center; padding: 10px; }
@@ -146,7 +146,7 @@ namespace PB_MusicPlayer.Properties {
         ///&lt;article&gt;
         ///    &lt;h1&gt;You need to configure the app first!&lt;/h1&gt;
         ///    &lt;div&gt;
-        ///        &lt;p&gt;&lt;strong&gt;Please go to [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        ///        &lt;p&gt;&lt;strong&gt;Please go [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
         internal static string not_configured_page {
             get {
