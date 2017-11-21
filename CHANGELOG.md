@@ -9,7 +9,7 @@
 - Prevent exception on loading the PhantomBot YouTube Player
 - Modify update message
 - Added support for .NET Framework 4.7 and 4.7.1
-- [#1] Fix exception of load undefined detection timer
+- [[#1](https://github.com/promarcel/phantombot-musicplayer/issues/1)] Fix exception of load undefined detection timer
 
 ## Version 1.0 (2017-11-19)
 
