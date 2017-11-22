@@ -20,7 +20,7 @@ It embeds your PhantomBot YouTube music player with "Current Song" detection for
 
 As written above its programmed in C#. It will be working on windows well. For other operating systems you need to emulate the program (on Linux for example with Mono, not tested yet).
 
-You need to have installed **.NET Framework 4.6.1** on your system to use it.
+You need to have installed **.NET Framework 4.5.2 or higher** on your system to use it.
 
 ## Installation
 
