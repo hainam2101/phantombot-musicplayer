@@ -4,6 +4,10 @@
 
 # Changelog
 
+## Version 1.1.0 (2018-01-14)
+
+- [[#2](https://github.com/promarcel/phantombot-musicplayer/issues/2)] Add functionality for global hotkeys to pause and skip a song
+
 ## Version 1.0.1 (2017-11-21)
 
 - Prevent exception on loading the PhantomBot YouTube Player

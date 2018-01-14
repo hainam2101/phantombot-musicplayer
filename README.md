@@ -10,6 +10,7 @@ It embeds your PhantomBot YouTube music player with "Current Song" detection for
 
  - Embed your PhantomBot YouTube Music Player into a desktop software
  - Detect your "Current Song" and write it into a text file, also the output format can be changed
+ - Use your media control keys to skip a song (next key) or pause a track (pause key)
  - That's it, simple for display song request titles in your livestream!
 
 ## Screenshots

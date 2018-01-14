@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
+using System.Runtime.InteropServices;
 
 namespace PB_MusicPlayer
 {
@@ -29,6 +30,12 @@ namespace PB_MusicPlayer
         private bool songDetection = false;
         // Variable for browser is ready
         private bool browserReady = false;
+        // Set function for register hotkeys
+        [DllImport("user32.dll")]
+        public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vlc);
+        // Define media control keys
+        public const int VK_MEDIA_NEXT_TRACK = 0xB0;
+        public const int VK_MEDIA_PLAY_PAUSE = 0xB3;
 
         /*
          * Start actions when program is started
@@ -52,6 +59,45 @@ namespace PB_MusicPlayer
         {
             CefSettings settings = new CefSettings();
             Cef.Initialize(settings);
+        }
+
+        /*
+         * Function to react to hotkeys
+         */
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == 0x0312)
+            {    
+                int id = m.WParam.ToInt32();
+                var hotkeyCommand = "";
+                switch (id)
+                {
+                    case VK_MEDIA_NEXT_TRACK:
+                        hotkeyCommand = "skipSong();";
+                        break;
+                    case VK_MEDIA_PLAY_PAUSE:
+                        hotkeyCommand = "handlePause();";
+                        break;
+                }
+                // Set command to script
+                var script = String.Format(hotkeyCommand);
+
+                // Check if browser is ready
+                if (browserReady == true)
+                {
+                    // Wait on result
+                    chromeBrowser.EvaluateScriptAsync(script).ContinueWith(x =>
+                    {
+                        var response = x.Result;
+
+                        if (response.Success && response.Result != null)
+                        {
+                            // Dummy comment for success
+                        }
+                    });
+                }
+            }
+            base.WndProc(ref m);
         }
 
         /*
@@ -109,6 +155,10 @@ namespace PB_MusicPlayer
                     }
                 };
                 chromeBrowser.LoadingStateChanged += OnBrowserloadComplete;
+
+                // Register hotkeys 
+                RegisterHotKey(this.Handle, VK_MEDIA_NEXT_TRACK, 0, VK_MEDIA_NEXT_TRACK);
+                RegisterHotKey(this.Handle, VK_MEDIA_PLAY_PAUSE, 0, VK_MEDIA_PLAY_PAUSE);
             }
 
             // Apply the frame to panel
@@ -142,6 +192,7 @@ namespace PB_MusicPlayer
             // Clear complete panel
             panel1.Controls.Clear();
             chromeBrowser.Dispose();
+            browserReady = false;
             // Check if is a timer running
             if (detectionTimer != null)
             {
