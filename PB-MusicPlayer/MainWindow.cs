@@ -73,10 +73,10 @@ namespace PB_MusicPlayer
                 switch (id)
                 {
                     case VK_MEDIA_NEXT_TRACK:
-                        hotkeyCommand = "skipSong();";
+                        hotkeyCommand = "$('#skip-button').click();";
                         break;
                     case VK_MEDIA_PLAY_PAUSE:
-                        hotkeyCommand = "handlePause();";
+                        hotkeyCommand = "$('#play-pause-button').click();";
                         break;
                 }
                 // Set command to script
@@ -239,7 +239,7 @@ namespace PB_MusicPlayer
         private void GetSong(object source, ElapsedEventArgs e)
         {
             // Get current song from PhantomBot via JavaScript
-            var script = String.Format("$('#currentSong > strong').html();");
+            var script = String.Format("$('#video-title').html();");
             string outputFormat = Registry.Read("songFormat");
 
             // Check if browser is ready

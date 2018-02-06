@@ -4,6 +4,10 @@
 
 # Changelog
 
+## Version 1.1.1 (2018-02-06)
+
+- PhantomBot MusicPlayer is now ready for the new YouTube Player (PB version 4.2 and higher)!
+
 ## Version 1.1.0 (2018-01-14)
 
 - [[#2](https://github.com/promarcel/phantombot-musicplayer/issues/2)] Add functionality for global hotkeys to pause and skip a song

@@ -51,7 +51,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 29);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(804, 382);
+            this.panel1.Size = new System.Drawing.Size(804, 377);
             this.panel1.TabIndex = 0;
             // 
             // mainMenu
@@ -176,13 +176,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(804, 411);
+            this.ClientSize = new System.Drawing.Size(804, 406);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.mainMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenu;
+            this.MinimumSize = new System.Drawing.Size(820, 445);
             this.Name = "MainWindow";
-            this.Text = "Music Player for PhantomBot";
+            this.Text = " ";
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
