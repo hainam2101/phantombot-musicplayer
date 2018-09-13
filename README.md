@@ -1,6 +1,8 @@
 # <img alt="Logo" src="https://raw.githubusercontent.com/promarcel/phantombot-musicplayer/master/.github/logo.png" />
 
-![Github All Releases](https://img.shields.io/github/downloads/promarcel/phantombot-musicplayer/total.svg) [![GitHub release](https://img.shields.io/github/release/promarcel/phantombot-musicplayer.svg)](https://github.com/promarcel/phantombot-musicplayer/releases)  [<img src="https://discordapp.com/api/guilds/283665932910592001/widget.png?style=shield">](https://discord.gg/FNrduZN)
+>**ATTENTION:** This project isn't supported anymore. The source code still available though GitHub: https://github.com/promarcel/phantombot-musicplayer
+
+![Github All Releases](https://img.shields.io/github/downloads/promarcel/phantombot-musicplayer/total.svg) [![GitHub release](https://img.shields.io/github/release/promarcel/phantombot-musicplayer.svg)](https://github.com/promarcel/phantombot-musicplayer/releases)
 
 **Music Player for [PhantomBot](https://phantombot.tv)** is a tool for live-streamers they using the **Song Request** from PhantomBot written in C#.
 
